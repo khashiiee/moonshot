@@ -84,19 +84,48 @@ function MainContainer({ walletAddress, selectedOption }) {
                             {item.optimized_symbol}
                           </td>
                           <td className="text-sm text-gray-900 px-1 py-2 whitespace-nowrap text-left">
-                            {parseFloat(item.price).toFixed(2)}
+                            {item.price
+                              ? parseFloat(item.price).toFixed(2)
+                              : "not available"}
                           </td>
                           <td className="text-sm text-gray-900 px-1 py-2 whitespace-nowrap text-left">
-                            {parseFloat(item.amount).toFixed(4)}
+                            {item.amount
+                              ? parseFloat(item.amount).toFixed(4)
+                              : "not available"}
                           </td>
                           <td className="text-sm text-gray-900 px-1 py-2 whitespace-nowrap text-right">
-                            {(
-                              parseFloat(item.price).toFixed(2) *
-                              parseFloat(item.amount).toFixed(4)
-                            ).toFixed(4)}
+                            {item.amount
+                              ? parseFloat(item.price).toFixed(2) *
+                                parseFloat(item.amount).toFixed(4)
+                              : "not available"}
                           </td>
                         </tr>
                       ))}
+
+                      {dataMain.length < 1 ?  <tr className="bg-white border-b">
+                          <td className="text-sm text-gray-900 px-1 py-2 whitespace-nowrap text-left">
+                            <Image
+                              src={
+                                "https://www.pngitem.com/pimgs/m/558-5585968_thumb-image-not-found-icon-png-transparent-png.png"
+                              }
+                              loader={myLoader}
+                              width={20}
+                              height={20}
+                              alt={"logo"}
+                              unoptimized={true}
+                            />
+                            NO DATA
+                          </td>
+                          <td className="text-sm text-gray-900 px-1 py-2 whitespace-nowrap text-left">
+                            NO DATA
+                          </td>
+                          <td className="text-sm text-gray-900 px-1 py-2 whitespace-nowrap text-left">
+                            NO DATA
+                          </td>
+                          <td className="text-sm text-gray-900 px-1 py-2 whitespace-nowrap text-right">
+                            NO DATA
+                          </td>
+                        </tr> : null}
                     </tbody>
                   </table>
                 </div>
