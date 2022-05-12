@@ -15,6 +15,7 @@ function SideBar({ setWalletAddress, selectedOption, setSelectedOption }) {
   if (data) {
     data.map((data) => {
       options.push({ label: data.name, value: data.id });
+      console.log("name : "+data.name+" value : "+data.id);
     });
   }
 

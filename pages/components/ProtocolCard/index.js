@@ -13,11 +13,16 @@ function ProtocolCard({ item }) {
         <div>
           <div className="flex flex-wrap p-2">
             <Image
-              src={item.logo_url}
+              src={
+                item.logo_url
+                  ? item.logo_url
+                  : "https://www.pngitem.com/pimgs/m/558-5585968_thumb-image-not-found-icon-png-transparent-png.png"
+              }
               loader={myLoader}
               width={40}
               height={20}
               alt={"logo"}
+              unoptimized={true}
             />
             <div>
               <div>{item.name}</div>
