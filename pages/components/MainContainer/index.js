@@ -109,7 +109,6 @@ function MainContainer({ walletAddress, selectedOption }) {
                 </div>
               ) : (
                 <div>
-                  {" "}
                   <Skeleton width={100} count={5}></Skeleton>
                 </div>
               )}
@@ -117,7 +116,6 @@ function MainContainer({ walletAddress, selectedOption }) {
           </div>
         ) : (
           <div>
-            {" "}
             <Skeleton width={100} count={10}></Skeleton>
           </div>
         )}
