@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Skeleton from "react-loading-skeleton";
 import Card from "../Card";
 
 function ProtocolCard({ item }) {
