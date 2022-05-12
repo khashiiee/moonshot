@@ -3,10 +3,9 @@ import useSWR from "swr";
 import ProtocolCard from "../ProtocolCard";
 import Skeleton from "react-loading-skeleton";
 
-
 function MainContainer({ walletAddress, selectedOption }) {
   if (walletAddress) {
-    const { data  , error } = useSWR(
+    const { data, error } = useSWR(
       `https://openapi.debank.com/v1/user/token_list?id=` +
         walletAddress +
         `&chain_id=` +
@@ -14,7 +13,7 @@ function MainContainer({ walletAddress, selectedOption }) {
         `&is_all=false`
     );
 
-    const { data: cardData, error:cardDataError } = useSWR(
+    const { data: cardData, error: cardDataError } = useSWR(
       `https://openapi.debank.com/v1/user/simple_protocol_list?id=` +
         walletAddress +
         `&chain_id=` +
@@ -64,10 +63,9 @@ function MainContainer({ walletAddress, selectedOption }) {
                           </th>
                         </tr>
                       </thead>
-
                       <tbody>
                         {data.map((item, idx) => (
-                          <tr className="bg-white border-b">
+                          <tr className="bg-white border-b" key={idx}>
                             <td className="text-sm text-gray-900 px-1 py-2 whitespace-nowrap text-left">
                               <Image
                                 src={item.logo_url}
@@ -99,23 +97,28 @@ function MainContainer({ walletAddress, selectedOption }) {
               </div>
             </div>
 
-            <div >
+            <div>
               {cardData ? (
                 <div className="flex flex-wrap ">
                   {cardData.map((item, idx) => (
-                    <div className="p-5">
-                      <ProtocolCard item={item}>
-                      </ProtocolCard>
+                    <div className="p-5" key={idx}>
+                      <ProtocolCard item={item}></ProtocolCard>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div> <Skeleton width={100} count={5} ></Skeleton></div>
+                <div>
+                  {" "}
+                  <Skeleton width={100} count={5}></Skeleton>
+                </div>
               )}
             </div>
           </div>
         ) : (
-          <div>  <Skeleton width={100} count={10} ></Skeleton></div>
+          <div>
+            {" "}
+            <Skeleton width={100} count={10}></Skeleton>
+          </div>
         )}
       </div>
     );
