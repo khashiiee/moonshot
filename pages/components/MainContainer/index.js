@@ -2,25 +2,26 @@ import Image from "next/image";
 import useSWR from "swr";
 import ProtocolCard from "../ProtocolCard";
 import Skeleton from "react-loading-skeleton";
+import fetcher from "../../../utils/fetcher";
 
 function MainContainer({ walletAddress, selectedOption }) {
-  if (walletAddress) {
-    const { data, error } = useSWR(
+    const { data:dataMain, error : errorMain} = useSWR(() => walletAddress ?
       `https://openapi.debank.com/v1/user/token_list?id=` +
         walletAddress +
         `&chain_id=` +
         selectedOption +
         `&is_all=false`
-    );
+     : null);
 
-    const { data: cardData, error: cardDataError } = useSWR(
+     
+
+    const { data: cardData, error: cardDataError } = useSWR(() => walletAddress ?
       `https://openapi.debank.com/v1/user/simple_protocol_list?id=` +
         walletAddress +
         `&chain_id=` +
         selectedOption
-    );
+    : null);
 
-    console.log("helloo" + cardData);
 
     const myLoader = ({ src, width, quality }) => {
       return src;
@@ -28,7 +29,7 @@ function MainContainer({ walletAddress, selectedOption }) {
 
     return (
       <div className="basis-3/4 min-h-screen bg-violet-100">
-        {data ? (
+        {dataMain ? (
           <div className="basis-3/4 min-h-screen flex-initial bg-violet-100 pl-10">
             <div className="flex flex-auto py-10">
               <div className="overflow-x-auto sm:-mx-2 lg:-mx-4 bg-white  min-w-full px-5 rounded-lg">
@@ -64,7 +65,7 @@ function MainContainer({ walletAddress, selectedOption }) {
                         </tr>
                       </thead>
                       <tbody>
-                        {data.map((item, idx) => (
+                        {dataMain.map((item, idx) => (
                           <tr className="bg-white border-b" key={idx}>
                             <td className="text-sm text-gray-900 px-1 py-2 whitespace-nowrap text-left">
                               <Image
@@ -123,6 +124,6 @@ function MainContainer({ walletAddress, selectedOption }) {
       </div>
     );
   }
-}
+
 
 export default MainContainer;
